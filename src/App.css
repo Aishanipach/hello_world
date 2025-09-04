@@ -1,0 +1,122 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+body {
+  background-image: radial-gradient(circle, #ccc 1px, transparent 1px);
+  background-size: 20px 20px;
+  background-attachment: fixed;
+   font-family: "Instrument Serif", serif;
+
+}
+
+p {
+  font-family:'Roboto';
+  font-size: 1.2rem;
+}
+
+a {
+  font-family:'Roboto';
+  font-size: 1rem;
+}
+
+/* Add styles for your homepage */
+.homepage {
+  min-height: 70vh;
+  margin-bottom: 10vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Mobile-specific override */
+@media (max-width: 767px) {
+  .homepage {
+    min-height: 20vh;
+  }
+}
+
+.homepage-content {
+  text-align: center;
+  margin: 0 auto;
+}
+
+.homepage-title {
+   font-family: "Instrument Serif", serif;
+  font-size: 3rem;
+  color: #260448; /* violet color */
+  margin-bottom: 1rem;
+  line-height: 1;
+}
+
+.homepage-subtitle {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+  color: black;
+  line-height: 1.6;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+.homepage-image {
+  object-fit: cover;
+  width: 50vw;
+  height: auto;
+}
+
+.homepage-image:hover {
+  transform: translateX(10px);
+  animation: wiggle 0.5s ease-in-out;
+}
+
+@media (max-width: 767px) {
+  .homepage-image {
+    min-height: 20vh;
+    width: auto;
+  }
+}
+
+@keyframes wiggle {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  50% { transform: translateX(10px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
