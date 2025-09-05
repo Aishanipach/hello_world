@@ -31,14 +31,14 @@ const Homepage = () => {
         <>
           {/* Desktop image */}
           <img 
-            src="/src/assets/home.png" 
+            src="/assets/home.png" 
             alt="Aishani" 
             className="homepage-image hidden sm:block"
           />
 
           {/* Mobile image */}
           <img 
-            src="/src/assets/camera-v.png" 
+            src="/assets/camera-v.png" 
             alt="Aishani" 
             className="homepage-image block sm:hidden"
           />

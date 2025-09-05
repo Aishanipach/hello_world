@@ -23,7 +23,7 @@ export default function Contact() {
       <div className="flex-1 flex items-center justify-center p-1">
         <div className="max-w-md w-full">
           <img 
-            src="src/assets/lips.gif" 
+            src="assets/lips.gif" 
             alt="Animated GIF"
             className="w-full h-auto"
           />
