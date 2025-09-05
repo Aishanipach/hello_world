@@ -1,19 +1,12 @@
 import { useState, useEffect } from 'react';
 
 const Homepage = () => {
-  const [dimensions, setDimensions] = useState({
-    width: typeof window !== 'undefined' ? window.innerWidth : 1024,
-    height: typeof window !== 'undefined' ? window.innerHeight : 768
-  });
-
   const [actionWord, setActionWord] = useState('scroll');
 
   useEffect(() => {
     const handleResize = () => {
       const width = window.innerWidth;
       const height = window.innerHeight;
-      
-      setDimensions({ width, height });
       
       // Mobile interface detection logic
       // Consider it mobile if width is small OR if it's a touch device with portrait orientation

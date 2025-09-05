@@ -1,7 +1,7 @@
 import './App.css'
 import Contact from './components/contact'
 import Homepage from './components/homepage'
-import PolaroidCards from './components/polaroidCards'
+// import PolaroidCards from './components/polaroidCards'
 
 function App() {
   return (

@@ -1,10 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+
+type Card = {
+  title?: string;
+  description: string;
+  repo?: string;
+  // add other properties as needed
+};
+
+type Repo = {
+  name: string;
+  updated_at: string;
+  description : string;
+  // add other fields if needed
+};
 
 const PolaroidCards = ({ cards = [] }) => {
-  const [selectedCard, setSelectedCard] = useState(null);
+  const [selectedCard, setSelectedCard] = useState<Card & { index: number } | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const openModal = (card, index) => {
+  const openModal = (card: Card, index: number) => {
     setSelectedCard({ ...card, index });
     setIsModalOpen(true);
   };
@@ -14,18 +28,19 @@ const PolaroidCards = ({ cards = [] }) => {
     setSelectedCard(null);
   };
  
-  const [defaultCards, setDefaultCards] = useState([]);
+  const [defaultCards, setDefaultCards] = useState<Card[]>([]);
 
   useEffect(() => {
     // Step 1: Fetch all repos for the user
     fetch(`https://api.github.com/users/Aishanipach/repos`)
       .then(res => res.json())
-      .then(async (repos) => {
+      .then(async (repos: Repo[]) => {
         // Step 2: Filter repos with '-proj' in the name
         // const projRepos = repos.filter(repo => repo.name.includes('-proj'));
           const sortedRepos = repos.sort(
-            (a, b) => new Date(b.updated_at) - new Date(a.updated_at)
+            (a, b) => new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime()
           );
+
 
           // Filter out the repo named "Aishanipach"
           const filteredRepos = sortedRepos.filter(repo => repo.name !== "Aishanipach");
@@ -34,26 +49,38 @@ const PolaroidCards = ({ cards = [] }) => {
           const projRepos = filteredRepos.filter(repo => repo.name.includes('-xg'));
 
         // Step 3: Fetch README first line for each repo
-        const cards = await Promise.all(
+          const cards: Card[] = await Promise.all(
           projRepos.map(async (repo) => {
-          
             try {
               const res = await fetch(`https://api.github.com/repos/Aishanipach/${repo.name}/readme`);
               const data = await res.json();
+
+              let title = repo.name; // default fallback
+
               if (data && data.content) {
-                // decode base64
                 const readme = atob(data.content.replace(/\s/g, ''));
-                // first non-empty line
-                const firstLine = readme.split('\n').find(line => line.trim().length > 0) || repo.name;
-                return { description: repo.description, repo: repo.name };
+                const firstLine = readme.split('\n').find(line => line.trim().length > 0);
+                if (firstLine) {
+                  title = firstLine;
+                }
               }
+
+              return {
+                title,
+                description: repo.description || 'No description',
+                repo: repo.name,
+              };
+
             } catch {
-              // fallback in case README is missing/invalid
-               console.error("EH")
-              return { description: repo.name };
+              return {
+                title: repo.name,
+                description: repo.description || 'No description',
+                repo: repo.name,
+              };
             }
           })
         );
+
         console.log(cards.filter(Boolean))
         setDefaultCards(cards.filter(Boolean));
       });
